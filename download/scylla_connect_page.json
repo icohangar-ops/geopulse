@@ -1,0 +1,68 @@
+{
+  "code": 200,
+  "data": {
+    "description": "OAuth Login",
+    "external": {
+      "icon": {
+        "https://cdn.frontegg.com/content/hosted-login/23a362a//frontegg/oauth/frontegg-favicon.ico": {
+          "id": "page-favicon"
+        }
+      },
+      "modulepreload": {
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/AppWrapper-d14ad4d8.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/HostedLoginWrapper-d241da9e.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/PreLoginPage-237be531.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/context-f27f8a5f.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/index-e9079555.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/useContextOptions-d278601d.js": {
+          "as": "script",
+          "crossorigin": ""
+        },
+        "https://cdn.frontegg.com/content/hosted-login/23a362a/assets/utils-89576814.js": {
+          "as": "script",
+          "crossorigin": ""
+        }
+      },
+      "preload": {
+        "https://fronteggprodeustorage.blob.core.windows.net/public-vendor-assets/7f30f091-03fb-4eb0-afe4-beffc3de360d/assets/logo-d634bbaf-ec3a-4e87-ace3-7fa6e97523b1.png": {
+          "as": "image",
+          "fetchpriority": "high",
+          "name": "logo"
+        }
+      }
+    },
+    "html": "<html lang=\"en\"><head>\n    <meta charset=\"utf-8\">\n    <link id=\"page-favicon\" rel=\"icon\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a//frontegg/oauth/frontegg-favicon.ico\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">\n    <meta name=\"theme-color\" content=\"#000000\">\n    <meta name=\"description\" content=\"OAuth Login\">\n    <title>ScyllaDB Cloud</title>\n    <style>html {\n        font-size: 16px;\n    }\n\n    body {\n        margin: 0;\n        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n        sans-serif;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n\n    }\n\n    code {\n        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n        monospace;\n    }\n    </style>\n    <script>\n      window.__fronteggCdnPath = (filename) => {\n        return `https://cdn.frontegg.com/content/hosted-login/23a362a/${filename}`;\n      }\n\n      window.overrideAssetsCdn = false;\n      window.assetsCdnUrl = `%ASSETS_CDN_URL_PLACEHOLDER%`;\n    </script>\n  <script type=\"module\" crossorigin=\"\" src=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/index-e9079555.js\"></script>\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/HostedLoginWrapper-d241da9e.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/context-f27f8a5f.js\"><link name=\"logo\" rel=\"preload\" as=\"image\" href=\"https://fronteggprodeustorage.blob.core.windows.net/public-vendor-assets/7f30f091-03fb-4eb0-afe4-beffc3de360d/assets/logo-d634bbaf-ec3a-4e87-ace3-7fa6e97523b1.png\" fetchpriority=\"high\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/AppWrapper-d14ad4d8.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/index-e9079555.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/useContextOptions-d278601d.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/PreLoginPage-237be531.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://cdn.frontegg.com/content/hosted-login/23a362a/assets/utils-89576814.js\"><script charset=\"utf-8\" data-webpack=\"FronteggLoginBox:chunk-5597\" src=\"https://assets.frontegg.com/admin-box/7.109.0/login-box/5597.index.js\"></script><script charset=\"utf-8\" data-webpack=\"FronteggLoginBox:chunk-8053\" src=\"https://assets.frontegg.com/admin-box/7.109.0/login-box/8053.index.js\"></script></head>\n<body class=\"\">\n\n<noscript>You need to enable JavaScript to run this app.</noscript>\n<div id=\"root\"></div>\n\n\n\n\n<frontegg-app app-name=\"default\" id=\"frontegg-app-default\"><div id=\"frontegg-admin-portal-container-default\"></div><div id=\"frontegg-login-box-container-default\"></div><div id=\"frontegg-checkout-dialog-container-default\"></div></frontegg-app><script src=\"https://assets.frontegg.com/admin-box/7.109.0/login-box/index.js\" id=\"FronteggLoginBoxScript\" cdn-url=\"https://assets.frontegg.com/admin-box/7.109.0\"></script></body></html>",
+    "metadata": {
+      "description": "OAuth Login",
+      "lang": "en",
+      "theme-color": "#000000",
+      "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    },
+    "title": "ScyllaDB Cloud",
+    "url": "https://cloud.scylladb.com/clusters/50003/connect",
+    "usage": {
+      "tokens": 961
+    }
+  },
+  "meta": {
+    "usage": {
+      "tokens": 961
+    }
+  },
+  "status": 20000
+}

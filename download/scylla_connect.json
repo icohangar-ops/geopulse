@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://forum.scylladb.com/t/getting-scylla-cluster-started-with-docker-noob-questions/866",
+    "name": "Getting Scylla cluster started with docker (Noob Questions) - ScyllaDB",
+    "snippet": "$SEED_NODE_IP is the way you tell the newly starting scylla node, who to contact to be admitted into the cluster. In the simplest case, you can ...\n$SEED_NODE_IP is the way you tell the newly starting scylla node, this will be its own ip address, Also make sure you expose all the ports ...",
+    "host_name": "forum.scylladb.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/scylladb/scylladb/issues/4413",
+    "name": "Unable to connect to Scylla via port 9042 (and others) on Docker",
+    "snippet": "The two scylla containers are able to communicate with each other across the overlay network - the second node joins the cluster successfully, ...\nUnable to connect to a Scylla cluster via port 9042 and others using the host IP addresses/names. 9042:9042. IP address cannot connect to ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://ramnode.com/guides/scylladb",
+    "name": "Deploy ScyllaDB on RamNode VPS | High-Performance NoSQL",
+    "snippet": "Network Ports ; 9042, CQL, Native CQL client connections ; 9142, CQL SSL, Encrypted CQL connections ; 7000, Inter-node, Cluster communication ; 7001, Inter-node SSL ...\nComplete guide to deploying ScyllaDB, a high-performance Cassandra-compatible NoSQL database, on your RamNode VPS. Learn installation, configuration ...\nComplete guide to deploying <b>ScyllaDB</b>, 9042 CQL Native CQL client connections 9142. Inter-node Cluster communication. Node IP for inter-node",
+    "host_name": "ramnode.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://stackoverflow.com/questions/72165195/error-connecting-java-spring-application-to-scylladb-cluster-in-docker",
+    "name": "Error connecting Java Spring application to ScyllaDB Cluster in",
+    "snippet": "I have ScyllaDB cluster running successfully on docker, but I'm having some connectivity problems when trying to connect my Spring Boot application to it.\nIn the example, we are exposing the container port 9042 to the host port 9043 . You will need similar configurations to the rest of the nodes:",
+    "host_name": "stackoverflow.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.scylladb.com/2021/04/27/connect-faster-to-scylla-with-a-shard-aware-port",
+    "name": "Connect Faster to ScyllaDB with a Shard-Aware Port",
+    "snippet": "ScyllaDB provides a feature called shard-aware port. In addition to listening for CQL driver connections on the usual port (by default 9042) ...",
+    "host_name": "www.scylladb.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]
