@@ -17,7 +17,7 @@ export async function GET() {
   // Enrich with risk zone info
   const enriched = stations.map(s => {
     const zoneEntry = Object.entries(RISK_ZONES).find(([, z]) =>
-      z.stationIds.includes(s.stationId),
+      (z.stationIds as readonly string[]).includes(s.stationId),
     );
     return {
       ...s,

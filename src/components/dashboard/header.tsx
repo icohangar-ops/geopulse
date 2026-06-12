@@ -121,7 +121,7 @@ export function DashboardHeader() {
             <Button
               size="sm"
               className="h-8 text-xs bg-emerald-600 hover:bg-emerald-500 text-white"
-              onClick={() => startSimulator(0.02)}
+              onClick={() => startSimulator()}
             >
               <Play className="h-3.5 w-3.5 mr-1" />
               Start Simulator

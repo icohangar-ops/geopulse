@@ -3,7 +3,7 @@
 // Time-series geospatial data storage for GNSS readings
 // ============================================================
 
-import { CassandraClient } from 'cassandra-driver';
+import { Client as CassandraClient, auth as cassandraAuth } from 'cassandra-driver';
 import type { GNSReading, Anomaly } from './types';
 
 // ScyllaDB connection config
@@ -102,7 +102,7 @@ export async function initScyllaDB(): Promise<{ connected: boolean; mode: 'scyll
   try {
     const client = new CassandraClient({
       contactPoints: SCYLLA_CONFIG.contactPoints,
-      authProvider: new CassandraClient.auth.PlainTextAuthProvider(
+      authProvider: new cassandraAuth.PlainTextAuthProvider(
         SCYLLA_CONFIG.username,
         SCYLLA_CONFIG.password,
       ),
@@ -119,7 +119,6 @@ export async function initScyllaDB(): Promise<{ connected: boolean; mode: 'scyll
       },
       pooling: {
         coreConnectionsPerHost: { [SCYLLA_CONFIG.localDataCenter]: 2 },
-        maxConnectionsPerHost: { [SCYLLA_CONFIG.localDataCenter]: 4 },
       },
     });
 
