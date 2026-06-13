@@ -4,6 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { guardSensitiveRoute } from '@/lib/api-auth';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -25,6 +26,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  // Mutating: creates an alert. Require auth (fail-closed).
+  const denied = guardSensitiveRoute(request);
+  if (denied) return denied;
+
   const body = await request.json();
   const { stationId, type, severity, title, description, latitude, longitude, value, threshold } = body;
 
@@ -50,6 +55,10 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  // Mutating: acknowledges/resolves an alert. Require auth (fail-closed).
+  const denied = guardSensitiveRoute(request);
+  if (denied) return denied;
+
   const body = await request.json();
   const { id, acknowledged, resolved } = body;
 

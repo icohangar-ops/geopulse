@@ -1,11 +1,16 @@
 // POST /api/init — Initialize ScyllaDB connection and seed stations
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { initScyllaDB } from '@/lib/scylla';
 import { db } from '@/lib/db';
 import { AFRICAN_GNSS_STATIONS } from '@/lib/stations';
+import { guardSensitiveRoute } from '@/lib/api-auth';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  // Destructive: re-seeds the DB. Require auth (fail-closed).
+  const denied = guardSensitiveRoute(request);
+  if (denied) return denied;
+
   try {
     // Initialize ScyllaDB
     const scyllaResult = await initScyllaDB();

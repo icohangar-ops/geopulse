@@ -6,6 +6,7 @@
 import { NextRequest } from 'next/server';
 import { AFRICAN_GNSS_STATIONS } from '@/lib/stations';
 import { v4 as uuid } from 'uuid';
+import { guardSensitiveRoute } from '@/lib/api-auth';
 
 interface SimState {
   northDrift: number;
@@ -181,6 +182,10 @@ export async function GET(request: NextRequest) {
   }
 
   if (action === 'inject') {
+    // Sensitive: injects synthetic anomalies. Require auth (fail-closed).
+    const denied = guardSensitiveRoute(request);
+    if (denied) return denied;
+
     const stationId = searchParams.get('stationId');
     if (!stationId) return new Response(JSON.stringify({ error: 'stationId required' }), { status: 400, headers: jsonHeaders });
     const state = states.get(stationId);

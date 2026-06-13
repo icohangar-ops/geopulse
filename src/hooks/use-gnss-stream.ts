@@ -4,6 +4,14 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useDashboardStore } from '@/lib/store';
 import type { GNSReading, Anomaly } from '@/lib/types';
 
+// Bearer token for sensitive/destructive endpoints (/api/init, inject).
+// Server gates them fail-closed via requireAuth; the client attaches the
+// token only when one is configured for this deployment.
+function authHeaders(): HeadersInit {
+  const token = process.env.NEXT_PUBLIC_GEOPULSE_API_TOKEN;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 /**
  * SSE hook — connects to the /api/stream endpoint and feeds
  * readings + anomalies into the Zustand store via Server-Sent Events.
@@ -78,7 +86,7 @@ export function useGNSSStream() {
 
   const injectAnomaly = useCallback(async (stationId: string) => {
     try {
-      await fetch(`/api/stream?action=inject&stationId=${stationId}`);
+      await fetch(`/api/stream?action=inject&stationId=${stationId}`, { headers: authHeaders() });
     } catch {}
   }, []);
 
@@ -86,7 +94,7 @@ export function useGNSSStream() {
   useEffect(() => {
     connect();
 
-    fetch('/api/init', { method: 'POST' })
+    fetch('/api/init', { method: 'POST', headers: authHeaders() })
       .then(r => r.json())
       .then(data => {
         if (data.connectionMode) setConnectionMode(data.connectionMode);
