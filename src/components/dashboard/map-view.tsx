@@ -18,6 +18,59 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+function createEl(tag: string, className?: string, text?: string): HTMLElement {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function appendLabeledValue(
+  parent: HTMLElement,
+  label: string,
+  value: string,
+  valueClassName: string,
+) {
+  const row = createEl('div');
+  row.append(document.createTextNode(label));
+  row.append(createEl('span', valueClassName, value));
+  parent.append(row);
+}
+
+function buildStationPopup(
+  station: Station,
+  latest?: { lat: number; lon: number; res3d: number; pdop: number; sats: number },
+): HTMLElement {
+  const root = createEl('div', 'text-xs font-sans min-w-48');
+  root.append(
+    createEl('div', 'font-bold text-sm mb-1', `${station.stationId} — ${station.name}`),
+    createEl('div', 'text-gray-400', `${station.country} · ${station.network}`),
+    createEl('div', 'text-gray-400', `Elev: ${station.elevation}m`),
+  );
+
+  if (latest) {
+    const stats = createEl('div', 'mt-2 border-t border-gray-700 pt-1');
+    appendLabeledValue(
+      stats,
+      'PDOP: ',
+      latest.pdop.toFixed(1),
+      `font-mono ${latest.pdop > 4 ? 'text-red-400' : 'text-green-400'}`,
+    );
+    appendLabeledValue(stats, 'Satellites: ', String(latest.sats), 'font-mono');
+    appendLabeledValue(
+      stats,
+      '3D Residual: ',
+      `${latest.res3d.toFixed(1)} mm`,
+      `font-mono ${latest.res3d > 10 ? 'text-red-400' : 'text-green-400'}`,
+    );
+    root.append(stats);
+  } else {
+    root.append(createEl('div', 'mt-1 text-gray-500', 'No data yet'));
+  }
+
+  return root;
+}
+
 export function MapView() {
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMapRef = useRef<L.Map | null>(null);
@@ -102,7 +155,9 @@ export function MapView() {
           fillOpacity: 0.8,
         }).addTo(map);
 
-        marker.bindTooltip(station.stationId, {
+        const tooltip = document.createElement('span');
+        tooltip.textContent = station.stationId;
+        marker.bindTooltip(tooltip, {
           permanent: false,
           direction: 'top',
           offset: [0, -8],
@@ -132,22 +187,10 @@ export function MapView() {
         radius: isSelected ? 9 : 6,
       });
 
-      // Update popup
-      const popupContent = `
-        <div class="text-xs font-sans min-w-48">
-          <div class="font-bold text-sm mb-1">${station.stationId} — ${station.name}</div>
-          <div class="text-gray-400">${station.country} · ${station.network}</div>
-          <div class="text-gray-400">Elev: ${station.elevation}m</div>
-          ${latest ? `
-            <div class="mt-2 border-t border-gray-700 pt-1">
-              <div>PDOP: <span class="font-mono ${latest.pdop > 4 ? 'text-red-400' : 'text-green-400'}">${latest.pdop.toFixed(1)}</span></div>
-              <div>Satellites: <span class="font-mono">${latest.sats}</span></div>
-              <div>3D Residual: <span class="font-mono ${latest.res3d > 10 ? 'text-red-400' : 'text-green-400'}">${latest.res3d.toFixed(1)} mm</span></div>
-            </div>
-          ` : '<div class="mt-1 text-gray-500">No data yet</div>'}
-        </div>
-      `;
-      marker.bindPopup(popupContent, { className: '!bg-neutral-900 !text-neutral-100 !border-neutral-700 !rounded-lg' });
+      // Bind a DOM node so station/reading fields are never parsed as HTML.
+      marker.bindPopup(buildStationPopup(station, latest), {
+        className: '!bg-neutral-900 !text-neutral-100 !border-neutral-700 !rounded-lg',
+      });
     }
 
     // Update anomaly markers (pulsing circles)
