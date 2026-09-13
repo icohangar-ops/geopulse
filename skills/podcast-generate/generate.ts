@@ -97,8 +97,18 @@ function parseArgs(): { [key: string]: any } {
   return result;
 }
 
+function resolveSafePath(userPath: string, baseDir: string = process.cwd()): string {
+  const resolvedBase = path.resolve(baseDir);
+  const resolved = path.resolve(resolvedBase, userPath);
+  const relative = path.relative(resolvedBase, resolved);
+  if (relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new Error(`Path is outside the allowed directory: ${userPath}`);
+  }
+  return resolved;
+}
+
 function readText(filePath: string): string {
-  let content = fs.readFileSync(filePath, 'utf-8');
+  let content = fs.readFileSync(resolveSafePath(filePath), 'utf-8');
   content = content.replace(/\r\n/g, '\n');
   content = content.replace(/\n{3,}/g, '\n\n');
   content = content.replace(/[ \t]{2,}/g, ' ');

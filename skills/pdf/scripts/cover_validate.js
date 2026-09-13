@@ -28,6 +28,16 @@
 const fs = require('fs');
 const path = require('path');
 
+function resolveSafePath(userPath, baseDir = process.cwd()) {
+  const resolvedBase = path.resolve(baseDir);
+  const resolved = path.resolve(resolvedBase, userPath);
+  const relative = path.relative(resolvedBase, resolved);
+  if (relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) {
+    throw new Error(`Path is outside the allowed directory: ${userPath}`);
+  }
+  return resolved;
+}
+
 // ── Playwright import ──
 
 let playwright;
@@ -288,7 +298,7 @@ async function main() {
     process.exit(2);
   }
 
-  const absIn = path.resolve(input);
+  const absIn = resolveSafePath(input);
   if (!fs.existsSync(absIn)) {
     console.error(`✗ File not found: ${absIn}`);
     process.exit(2);
