@@ -35,6 +35,16 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
+function resolveSafePath(userPath, baseDir = process.cwd()) {
+  const resolvedBase = path.resolve(baseDir);
+  const resolved = path.resolve(resolvedBase, userPath);
+  const relative = path.relative(resolvedBase, resolved);
+  if (relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) {
+    throw new Error(`Path is outside the allowed directory: ${userPath}`);
+  }
+  return resolved;
+}
+
 // ── Chromium resolution (shared logic with html2pdf-next.js) ──
 
 function resolveChromium(chromiumObj) {
@@ -99,7 +109,7 @@ Options:
 
 async function main() {
   const { input, output, width, maxHeight } = parseArgs(process.argv);
-  const absIn = path.resolve(input);
+  const absIn = resolveSafePath(input);
   const absOut = path.resolve(output);
 
   if (!fs.existsSync(absIn)) {

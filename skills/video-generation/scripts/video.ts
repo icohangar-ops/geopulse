@@ -1,5 +1,16 @@
 import ZAI from "z-ai-web-dev-sdk";
 import fs from "fs";
+import path from "path";
+
+function resolveSafePath(userPath: string, baseDir: string = process.cwd()): string {
+  const resolvedBase = path.resolve(baseDir);
+  const resolved = path.resolve(resolvedBase, userPath);
+  const relative = path.relative(resolvedBase, resolved);
+  if (relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
+    throw new Error(`Path is outside the allowed directory: ${userPath}`);
+  }
+  return resolved;
+}
 
 async function create() {
   try {
@@ -39,14 +50,16 @@ async function createFromImage(imagePath: string) {
   try {
     const zai = await ZAI.create();
 
+    const safeImagePath = resolveSafePath(imagePath);
+
     console.log("Creating image-to-video generation task...");
-    console.log(`Reading image from: ${imagePath}`);
+    console.log(`Reading image from: ${safeImagePath}`);
 
     // Read image file and convert to base64
-    const imageBuffer = fs.readFileSync(imagePath);
+    const imageBuffer = fs.readFileSync(safeImagePath);
     
     // Detect MIME type from file extension
-    const imageExt = imagePath.split('.').pop()?.toLowerCase() || '';
+    const imageExt = safeImagePath.split('.').pop()?.toLowerCase() || '';
     const mimeTypeMap: Record<string, string> = {
       'jpg': 'image/jpeg',
       'jpeg': 'image/jpeg',
