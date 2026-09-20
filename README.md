@@ -167,6 +167,14 @@ src/
     └── db.ts                    # Prisma client
 ```
 
+## Propagation Matrix — Wave C rows
+
+### Row 20 — evidence-carrying deterministic confidence: REVERSED (with credit)
+
+The row's scaffolding decomposes a model-derived score into capped factors with a confidence band and verbatim snippets. Geopulse has no model-derived score to decompose: anomalies are produced deterministically by a statistical detector (`src/lib/anomaly-detector.ts` — per-station sliding windows over position residuals) and every anomaly already carries its evidence verbatim — a closed six-value type vocabulary and three-level severity (`src/lib/types.ts`: `position_drift`, `velocity_spike`, `signal_degradation`, `multipath_anomaly`, `cycle_slip`, `elevation_jump`; `critical`/`warning`/`info`), the triggering reading's coordinates, elevation, and residual values, a title and description, and the timestamp. The dashboard renders that evidence beside every anomaly (map view + anomaly feed) — a human reads it, which is the condition under which the row's scaffolding pays off, but there is no opaque integer to explain: severity IS the deterministic classification. Adding a factor/band layer on top of a closed vocabulary would be ceremony, not confidence.
+
+**Revisit trigger:** a model-scored anomaly path lands (model-classified anomaly types or model-ranked severities beside the deterministic detector) — then the capped-factor confidence scaffolding applies to that path's scores and should be adopted for it.
+
 ## License
 
 MIT
